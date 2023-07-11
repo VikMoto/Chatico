@@ -1,6 +1,8 @@
 package com.chatico.messegaeservice.controller;
 
+import com.chatico.messegaeservice.domain.Message;
 import com.chatico.messegaeservice.domain.UserChat;
+import com.chatico.messegaeservice.repositiry.MessageRepository;
 import com.chatico.messegaeservice.repositiry.UserChatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +16,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MessageController {
     private final UserChatRepository userChatRepository;
+    private final MessageRepository messageRepository;
 
     @GetMapping("/list")
-    public List<UserChat> list() {
-        return new ArrayList<>(userChatRepository.findAll());
+    public List<Message> list() {
+        return new ArrayList<>(messageRepository.findAll());
     }
 
     @PostMapping
-    public UserChat createUserChat(@RequestBody UserChat userChat) {
-        userChat.setLastVisit(LocalDateTime.now());
-        return userChatRepository.save(userChat);
+    public Message createUserChat(@RequestBody Message message) {
+        message.setCreationDate(LocalDateTime.now());
+        return messageRepository.save(message);
     }
 }

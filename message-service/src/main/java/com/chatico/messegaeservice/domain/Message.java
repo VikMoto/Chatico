@@ -1,14 +1,15 @@
-package letscode.sarafan.domain;
+package com.chatico.messegaeservice.domain;
 
 import com.chatico.messegaeservice.domain.UserChat;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-
 import java.time.LocalDateTime;
+
 
 
 @Entity
