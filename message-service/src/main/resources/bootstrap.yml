@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: userchats
+  cloud:
+    config:
+      url: http://localhost:8888

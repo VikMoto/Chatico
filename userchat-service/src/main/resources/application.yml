@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+        default_schema: public
+
+
+  flyway:
+    baseline-on-migrate: true
+    locations: classpath:src/main/resources/db/migration
+
+    create-schemas: false
+    init-sqls: CREATE IF NOT EXISTS flyway_history_schema
+    schemas: flyway_history_schema,public
+    user: postgres
+    password: postgres
+    default-schema: public
