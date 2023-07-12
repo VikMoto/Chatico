@@ -1,7 +1,6 @@
-
 spring:
   application:
-    name: userchats
+    name: messages
   cloud:
     config:
       url: http://localhost:8888

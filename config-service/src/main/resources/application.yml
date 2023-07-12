@@ -1,9 +1,15 @@
+logging:
+  level:
+    org.springframework.cloud.config: DEBUG
+
+
 server:
   port: 8888
 
 spring:
   application:
     name: userchats
+
   profiles:
     active: native
   cloud:

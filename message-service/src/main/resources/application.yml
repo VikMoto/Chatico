@@ -1,7 +1,13 @@
 spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
   jpa:
+    generate-ddl: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5434/postgres
+    username: postgres
+    password: mysecretpassword
+    driver-class-name: org.postgresql.Driver
+
     hibernate:
       ddl-auto: update
     properties:
@@ -9,6 +15,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
         default_schema: public
+
 
 
   flyway:
@@ -19,5 +26,12 @@ spring:
     init-sqls: CREATE IF NOT EXISTS flyway_history_schema
     schemas: flyway_history_schema,public
     user: postgres
-    password: postgres
+    password: mysecretpassword
     default-schema: public
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true

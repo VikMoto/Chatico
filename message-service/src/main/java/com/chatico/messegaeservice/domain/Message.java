@@ -1,6 +1,5 @@
 package com.chatico.messegaeservice.domain;
 
-import com.chatico.messegaeservice.domain.UserChat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -23,19 +22,19 @@ import java.time.LocalDateTime;
 )
 public class Message {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(nullable = false)
     private String text;
 
     @Column(updatable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime creationDate;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserChat author;
+
+    @JoinColumn(name = "userchat_id")
+    private Long userchatId;
 
 //    @OneToMany(mappedBy = "message", orphanRemoval = true)
 //    @JsonView(Views.FullMessage.class)
