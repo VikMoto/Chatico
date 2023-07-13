@@ -1,45 +1,42 @@
 package com.chatico.messegaeservice.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import java.time.LocalDateTime;
 
-
+import java.util.List;
 
 @Entity
 @Table
-@ToString(of = {"id", "text"})
+@ToString(of = {"id"})
 @EqualsAndHashCode(of = {"id"})
 @Data
 @JsonIdentityInfo(
         property = "id",
         generator = ObjectIdGenerators.PropertyGenerator.class
 )
-public class Message {
+public class PrivatChat implements Chat{
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String text;
+    @OneToMany
+    @JoinColumn(name = "privat_chat_id")
+    private List<Message> messages;
 
-    private Long userchatId;
+    @Override
+    public void sendMessage(Long id, Message message) {
 
-    @Column(updatable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime creationDate;
+    }
 
+    @Override
+    public void getMessage(Long id, Message message) {
 
-    @ManyToOne
-    private GroupChat groupChat;
-
-    @ManyToOne
-    private PrivatChat privatChat;
-
+    }
 
 }
