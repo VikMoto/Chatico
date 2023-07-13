@@ -1,19 +1,21 @@
 package com.chatico.messegaeservice.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
 public class UserContacts {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @MapsId("userChat_id")
+    @MapsId
     @ManyToOne
-    private UserChat contact;
+    @JoinColumn(name = "user_chat_id")
+    private UserChat userChat;
+
 }

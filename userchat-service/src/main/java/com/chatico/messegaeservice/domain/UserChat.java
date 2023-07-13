@@ -9,10 +9,7 @@ import org.hibernate.annotations.NaturalId;
 
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 
 @Entity
@@ -22,10 +19,10 @@ import java.util.TreeSet;
 @ToString(of = { "id", "name" })
 public class UserChat {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
 
@@ -48,11 +45,12 @@ public class UserChat {
     private LocalDateTime lastVisit;
 
     @OneToMany(
-            mappedBy = "contact",
+            mappedBy = "userChat",
             orphanRemoval = true,
             cascade = CascadeType.ALL
     )
-    private Set<UserContacts> contacts = new HashSet<>();
+//    @JoinColumn(name = "group_chat_id")
+    private Set<UserContacts> contacts = new TreeSet<>();
 
     public enum Gender{
         MALE, FEMALE;
