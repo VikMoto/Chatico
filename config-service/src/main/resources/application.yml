@@ -17,8 +17,8 @@ spring:
       server:
         git:
           uri: https://github.com/VikMoto/chaticoconf.git
-          username: ig.basalt@gmail.com
-          password: Ti&KE-592gHu
+          username: ******@gmail.com
+          password: ***************
 #        native:
 #          search-locations:
 #          - classpath:/config
