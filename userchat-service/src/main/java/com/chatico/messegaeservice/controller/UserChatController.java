@@ -1,7 +1,9 @@
 package com.chatico.messegaeservice.controller;
 
 import com.chatico.messegaeservice.domain.UserChat;
+import com.chatico.messegaeservice.dto.UserChatDto;
 import com.chatico.messegaeservice.repositiry.UserChatRepository;
+import com.chatico.messegaeservice.service.UserchatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserChatController {
     private final UserChatRepository userChatRepository;
+    private final UserchatService userchatService;
 
     @GetMapping("/list")
     public List<UserChat> list() {
@@ -25,5 +28,10 @@ public class UserChatController {
     public UserChat createUserChat(@RequestBody UserChat userChat) {
         userChat.setLastVisit(LocalDateTime.now());
         return userChatRepository.save(userChat);
+    }
+
+    @GetMapping("/{userchatId}")
+    public UserChatDto getUserChatWithMessages(@PathVariable  Long userchatId) {
+       return userchatService.getWithMessagesById(userchatId);
     }
 }

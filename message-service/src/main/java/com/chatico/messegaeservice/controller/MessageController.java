@@ -20,8 +20,8 @@ public class MessageController {
         return new ArrayList<>(messageRepository.findAll());
     }
 
-    @GetMapping("/userchat/")
-    public List<Message> getMessageById(@RequestParam Long userchatId) {
+    @GetMapping("/userchat")
+    public List<Message> getMessagesByUserchatId(@RequestParam Long userchatId) {
         return messageRepository.findAllByUserchatId(userchatId);
     }
 
