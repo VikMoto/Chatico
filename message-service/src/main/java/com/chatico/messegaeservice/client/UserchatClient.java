@@ -14,6 +14,6 @@ public interface UserchatClient {
     @GetMapping("/userchat/list")
     List<UserChatDto> getAllUserchat();
 
-    @GetMapping("/userchat/{id}")
-    UserChatDto getUserchatById(@PathVariable("id") Long id);
+    @GetMapping("/userchat")
+    UserChatDto getUserchatById(@RequestParam("id") Long id);
 }
