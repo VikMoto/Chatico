@@ -29,6 +29,7 @@ public class GroupChat implements Chat{
     @Column(nullable = false)
     private String name;
 
+    private Long userchatId;
 
     @OneToMany
     @JoinColumn(name = "group_chat_id")

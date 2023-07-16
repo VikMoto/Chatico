@@ -1,6 +1,9 @@
 package com.chatico.messegaeservice.dto;
 
-import java.time.LocalDateTime;
+import com.chatico.messegaeservice.domain.Message;
 
-public record MessageDto(Long id, String text, LocalDateTime creationDate) {
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record MessageDto(Long id, String text, List<Message> messages) {
 }

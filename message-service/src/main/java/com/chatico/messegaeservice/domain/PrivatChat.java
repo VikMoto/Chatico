@@ -25,6 +25,8 @@ public class PrivatChat implements Chat{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long userchatId;
+
     @OneToMany
     @JoinColumn(name = "privat_chat_id")
     private List<Message> messages;
