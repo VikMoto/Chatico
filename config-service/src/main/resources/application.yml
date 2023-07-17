@@ -16,9 +16,9 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/VikMoto/chaticoconf.git
-          username: ******@gmail.com
-          password: ***************
+          uri: https://github.com/GrowCode007/chatconfig.git
+          username: growcode007@gmail.com
+          password: 45*7UjKw
 
 
 #        native:
