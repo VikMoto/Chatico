@@ -11,9 +11,9 @@ import java.util.List;
 
 @FeignClient(name = "userchats")
 public interface UserchatClient {
-    @GetMapping("/userchat/list")
+    @GetMapping("/users/list")
     List<UserChatDto> getAllUserchat();
 
-    @GetMapping("/userchat")
-    UserChatDto getUserchatById(@RequestParam("id") Long id);
+    @GetMapping("/users/{id}")
+    UserChatDto getUserchatById(@PathVariable("id") Long id);
 }

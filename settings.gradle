@@ -1,4 +1,4 @@
-rootProject.name = 'chatico'
+rootProject.name = 'Chatico'
 
 includeBuild 'config-service'
 includeBuild 'userchat-service'

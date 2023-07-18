@@ -26,6 +26,6 @@ public class UserchatService {
 
         //create userchatDTO
         UserChat userChat = userChatRepository.findById(userchatId).orElseThrow();
-        return new UserChatDto(userChat.getName(), messagesByUsechatId);
+        return new UserChatDto(userChat.getId(),userChat.getName(), messagesByUsechatId);
     }
 }

@@ -1,14 +1,18 @@
 package com.chatico.messegaeservice.domain;
 
+import com.chatico.messegaeservice.dto.MessageDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import java.time.LocalDateTime;
+import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
 
 
 @Entity
@@ -20,6 +24,8 @@ import java.time.LocalDateTime;
         property = "id",
         generator = ObjectIdGenerators.PropertyGenerator.class
 )
+//@RequiredArgsConstructor(staticName = "of")
+@NoArgsConstructor
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +34,7 @@ public class Message {
     @Column(nullable = false)
     private String text;
 
+    @NaturalId
     private Long userchatId;
 
     @Column(updatable = false)
@@ -41,5 +48,10 @@ public class Message {
     @ManyToOne
     private PrivatChat privatChat;
 
-
+    public Message(long id, String text, long userchatId, Date creationDate) {
+        this.id = id;
+        this.text = text;
+        this.userchatId = userchatId;
+        this.creationDate = new Timestamp(creationDate.getTime()).toLocalDateTime();
+    }
 }

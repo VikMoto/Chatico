@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,8 +31,13 @@ public class UserChatController {
         return userChatRepository.save(userChat);
     }
 
-    @GetMapping("/{userchatId}")
-    public UserChatDto getUserChatWithMessages(@PathVariable  Long userchatId) {
-       return userchatService.getWithMessagesById(userchatId);
+    @GetMapping("/{id}")
+    public UserChatDto getUserChatWithMessages(@PathVariable("id")  Long id) {
+        UserChat userChat = userChatRepository.findById(id).orElseThrow();
+        UserChatDto userChatDto = UserChatDto.builder()
+                .id(userChat.getId())
+                .name(userChat.getName())
+                .build();
+        return userChatDto;
     }
 }

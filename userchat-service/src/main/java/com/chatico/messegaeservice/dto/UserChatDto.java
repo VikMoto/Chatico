@@ -1,8 +1,10 @@
 package com.chatico.messegaeservice.dto;
 
 
-import java.util.List;
+import lombok.Builder;
 
-public record UserChatDto(String name, List<MessageDto> messageDtos) {
+import java.util.List;
+@Builder
+public record UserChatDto(Long id, String name, List<MessageDto> messageDtos) {
 
 }

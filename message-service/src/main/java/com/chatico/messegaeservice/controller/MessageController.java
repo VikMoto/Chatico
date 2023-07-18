@@ -24,19 +24,21 @@ public class MessageController {
         return new ArrayList<>(messageRepository.findAll());
     }
 
-    @GetMapping("/userchat")
+    @GetMapping("/users")
     public List<Message> getMessagesByUserchatId(@RequestParam Long userchatId) {
         return messageRepository.findAllByUserchatId(userchatId);
     }
 
-    @PostMapping
-    public Message createUserChat(@RequestBody Message message) {
+    @PostMapping("/{id}")
+    public Message createUserChat(@PathVariable("id")  Long id, @RequestBody Message message) {
         message.setCreationDate(LocalDateTime.now());
+        message.setUserchatId(id);
         return messageRepository.save(message);
     }
 
-    @GetMapping("/{userchatId}")
-    public List<MessageDto> getMessagesWithUserchatId(@PathVariable  Long userchatId) {
+    @GetMapping("/users/{id}")
+    public List<Message> getMessagesWithId(@PathVariable("id")  Long id) {
+        Long userchatId = id;
         return messageService.getMessagesByUserchatId(userchatId);
     }
 }
