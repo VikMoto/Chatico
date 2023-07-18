@@ -53,9 +53,9 @@ public class UserChatController {
                 .name(userChat.getName())
                 .build();
         log.info("waiting {}ms", DELAY);
-        Thread.sleep(DELAY += 100);
+//        Thread.sleep(DELAY += 100);
         log.info("responding with error");
-//        return userChatDto;
-        throw new RuntimeException("Unexpected error");
+        return userChatDto;
+//        throw new RuntimeException("Unexpected error");
     }
 }
