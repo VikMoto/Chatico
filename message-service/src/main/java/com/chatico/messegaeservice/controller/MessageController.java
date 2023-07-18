@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/messages")
@@ -39,6 +41,8 @@ public class MessageController {
     @GetMapping("/users/{id}")
     public List<Message> getMessagesWithId(@PathVariable("id")  Long id) {
         Long userchatId = id;
-        return messageService.getMessagesByUserchatId(userchatId);
+        return messageService.getMessagesByUserchatId(userchatId).stream()
+                .sorted(Comparator.comparing(Message::getCreationDate).reversed())
+                .collect(Collectors.toList());
     }
 }

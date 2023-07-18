@@ -2,10 +2,7 @@ package com.chatico.messegaeservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
 
@@ -20,6 +17,8 @@ import java.util.*;
 @EqualsAndHashCode(of = { "id" })
 @ToString(of = { "id", "name" })
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserChat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
