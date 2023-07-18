@@ -2,12 +2,14 @@ package com.chatico.messegaeservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -17,6 +19,7 @@ import java.util.*;
 @Data
 @EqualsAndHashCode(of = { "id" })
 @ToString(of = { "id", "name" })
+@Builder
 public class UserChat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +43,8 @@ public class UserChat {
 
 
     private String locale;
+
+    private LocalDate birthday;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastVisit;

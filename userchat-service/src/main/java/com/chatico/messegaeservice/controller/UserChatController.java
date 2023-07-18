@@ -2,6 +2,7 @@ package com.chatico.messegaeservice.controller;
 
 import com.chatico.messegaeservice.domain.UserChat;
 import com.chatico.messegaeservice.dto.UserChatDto;
+import com.chatico.messegaeservice.dto.UserchatRegDto;
 import com.chatico.messegaeservice.repositiry.UserChatRepository;
 import com.chatico.messegaeservice.service.UserchatService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,17 @@ public class UserChatController {
     }
 
     @PostMapping
-    public UserChat createUserChat(@RequestBody UserChat userChat) {
-        userChat.setLastVisit(LocalDateTime.now());
+    public UserChat createUserChat(@RequestBody UserchatRegDto userchatRegDto) {
+        UserChat userChat = UserChat.builder()
+                .name(userchatRegDto.getName())
+                .email(userchatRegDto.getEmail())
+                .userPic(userchatRegDto.getUserPic())
+                .gender(userchatRegDto.getGender())
+                .birthday(userchatRegDto.getBirthday())
+                .role(userchatRegDto.getRole())
+                .locale(null)
+                .lastVisit(LocalDateTime.now())
+                .build();
         return userChatRepository.save(userChat);
     }
 
