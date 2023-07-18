@@ -1,10 +1,10 @@
 package com.chatico.messegaeservice.dto;
 
-import com.chatico.messegaeservice.domain.UserChat;
 
-import java.time.LocalDateTime;
+import lombok.Builder;
+
 import java.util.List;
-
-public record UserChatDto(String name, String userPic, List<MessageDto> messageDtos) {
+@Builder
+public record UserChatDto(Long id, String name, List<MessageDto> messageDtos) {
 
 }

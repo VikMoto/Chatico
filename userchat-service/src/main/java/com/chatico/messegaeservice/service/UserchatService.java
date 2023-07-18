@@ -5,16 +5,9 @@ import com.chatico.messegaeservice.domain.UserChat;
 import com.chatico.messegaeservice.dto.MessageDto;
 import com.chatico.messegaeservice.dto.UserChatDto;
 import com.chatico.messegaeservice.repositiry.UserChatRepository;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
-
-
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +26,6 @@ public class UserchatService {
 
         //create userchatDTO
         UserChat userChat = userChatRepository.findById(userchatId).orElseThrow();
-        return new UserChatDto(userChat.getName(),null, messagesByUsechatId);
+        return new UserChatDto(userChat.getId(),userChat.getName(), messagesByUsechatId);
     }
 }
