@@ -5,6 +5,7 @@ import com.chatico.messegaeservice.dto.MessageDto;
 import com.chatico.messegaeservice.repositiry.MessageRepository;
 import com.chatico.messegaeservice.service.MessageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class MessageController {
     private final MessageRepository messageRepository;
     private final MessageService  messageService;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
 
     @GetMapping("/list")
@@ -39,10 +41,20 @@ public class MessageController {
     }
 
     @GetMapping("/users/{id}")
-    public List<Message> getMessagesWithId(@PathVariable("id")  Long id) {
+    public List<MessageDto> getMessagesWithId(@PathVariable("id")  Long id) {
         Long userchatId = id;
-        return messageService.getMessagesByUserchatId(userchatId).stream()
-                .sorted(Comparator.comparing(Message::getCreationDate).reversed())
-                .collect(Collectors.toList());
+        return messageService.getMessagesByUserchatId(userchatId);
+//                .stream()
+//                .sorted(Comparator.comparing(MessageDto::getCreationDate).reversed())
+//                .map(this::convertToDto)
+//                .collect(Collectors.toList());
+
+    }
+
+    private MessageDto convertToDto(Message message) {
+        return MessageDto.builder()
+                .text(message.getText())
+                .creationDate(message.getCreationDate())
+                .build();
     }
 }
