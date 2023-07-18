@@ -24,15 +24,17 @@ public class UserchatServiceClient {
     public UserChatDto getById(Long userchatId) {
 //        List<ServiceInstance> instances = discoveryClient.getInstances("userchats");
         ServiceInstance userchatsInstances = discoveryClient.getInstances("userchats").get(0);
-        Map<String, String> metadata = userchatsInstances.getMetadata();
-        for (Map.Entry<String, String> entry : metadata.entrySet()) {
-            System.out.println("entry.getValue() = " + entry.getValue());
-        }
+//        Map<String, String> metadata = userchatsInstances.getMetadata();
+//        for (Map.Entry<String, String> entry : metadata.entrySet()) {
+//            System.out.println("entry.getValue() = " + entry.getValue());
+//        }
         String userchatUrl = userchatsInstances.getUri() + "/users/{userchatId}";
-        System.out.println("userchatUrl = " + userchatUrl);
+//        System.out.println("userchatUrl = " + userchatUrl);
         //FailFast strategy
         return circuitBreakerFactory.create("userchats")
-                .run(() -> restTemplate.getForObject(userchatUrl, UserChatDto.class, userchatId));
+                .run(() -> restTemplate.getForObject(userchatUrl, UserChatDto.class, userchatId),
+                        //FallBack stratagy
+                        throwable -> new UserChatDto(userchatId, "HIDDEN"));
         //userchats
 
     }
