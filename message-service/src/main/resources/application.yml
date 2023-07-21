@@ -4,6 +4,7 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5434/postgres
+#    url: jdbc:postgresql://localhost:5434/postgres
     username: postgres
     password: mysecretpassword
     driver-class-name: org.postgresql.Driver
@@ -23,11 +24,18 @@ spring:
     locations: classpath:src/main/resources/db/migration
 
     create-schemas: false
-    init-sqls: CREATE IF NOT EXISTS flyway_history_schema
+    init-sql: CREATE IF NOT EXISTS flyway_history_schema
     schemas: flyway_history_schema,public
     user: postgres
     password: mysecretpassword
     default-schema: public
+
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+
 
 eureka:
   client:

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserChatController {
-    private static int DELAY = 500;
+    private static int DELAY = 100;
     private final UserChatRepository userChatRepository;
     private final UserchatService userchatService;
 
@@ -30,7 +31,7 @@ public class UserChatController {
         return new ArrayList<>(userChatRepository.findAll());
     }
 
-    @PostMapping
+    @PostMapping(("/registration"))
     public UserChat createUserChat(@RequestBody UserchatRegDto userchatRegDto) {
         UserChat userChat = UserChat.builder()
                 .name(userchatRegDto.getName())
@@ -53,7 +54,7 @@ public class UserChatController {
                 .name(userChat.getName())
                 .build();
         log.info("waiting {}ms", DELAY);
-        Thread.sleep(DELAY += 1000);
+        Thread.sleep(DELAY += 50);
         log.info("responding with error");
         return userChatDto;
 //        throw new RuntimeException("Unexpected error");

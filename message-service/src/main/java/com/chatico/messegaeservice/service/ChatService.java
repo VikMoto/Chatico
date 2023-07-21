@@ -12,24 +12,20 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.ArrayList;
-
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MessageService {
+public class ChatService {
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final MessageRepository messageRepository;
     private final UserchatClient userchatClient;
 //    private final UserchatServiceClient serviceClient;
 
     public List<MessageDto> getMessagesByGroupChatId(Long groupChatId, Long userchatId) {
-        String query = "SELECT m.id, m.text, m.userchat_id, m.creation_date, m.group_chat_id, gc.name FROM message m JOIN group_chat gc on m.group_chat_id = gc.id WHERE group_chat_id=:groupChatId";
+        String query = "SELECT m.id, m.text, m.userchat_id, m.creation_date, m.group_chat_id FROM message m JOIN group_chat gc on m.group_chat_id = gc.id WHERE group_chat_id=:chatId";
         List<MessageDto> messageDtos = new ArrayList<>();
-        GroupChat groupChat = new GroupChat();
         List<Message> messages = jdbcTemplate.query(
                 query,
                 Map.of("groupChatId", groupChatId),
@@ -39,10 +35,10 @@ public class MessageService {
                     long userChatId = resultSet.getLong("userchat_id");
                     Date creationDate = resultSet.getDate("creation_date");
                     long groupChatIdResult = resultSet.getLong("group_chat_id");
-                    String groupName = resultSet.getString("name");
+                    String groupName = resultSet.getString("group_chat_name");
 
                     // Fetch the GroupChat object using the groupChatId
-
+                    GroupChat groupChat = new GroupChat();
                     groupChat.setId(groupChatIdResult);
                     groupChat.setName(groupName);
 
@@ -59,16 +55,10 @@ public class MessageService {
 //                            );
                 }
         );
-        if (!messages.isEmpty()) {
-            UserChatDto userChatDto = userchatClient.getById(messages.get(0).getUserchatId());
-            return messages.stream()
-                    .map(it -> convertToDto(it,userChatDto, groupChat.getName()))
-                    .toList();
-        } else {
-            // Handle the case when the messages list is empty, maybe return an empty list or throw an exception.
-            // Example:
-            return Collections.emptyList();
-        }
+        UserChatDto userChatDto = userchatClient.getById(messages.get(0).getUserchatId());
+        return messages.stream()
+                .map(it -> convertToDto(it,userChatDto))
+                .toList();
     }
 
     public List<MessageDto> getMessagesByUserchatId(Long userchatId) {
@@ -87,18 +77,17 @@ public class MessageService {
         );
         UserChatDto userChatDto = userchatClient.getById(messages.get(0).getUserchatId());
         return messages.stream()
-                .map(it -> convertToDto(it,userChatDto,null))
+                .map(it -> convertToDto(it,userChatDto))
                 .toList();
 
     }
 
-    public MessageDto convertToDto(Message message, UserChatDto userChatDto, String  groupChatName) {
+    public MessageDto convertToDto(Message message, UserChatDto userChatDto) {
 
         return MessageDto.builder()
                 .text(message.getText())
                 .creationDate(message.getCreationDate())
                 .userChatDto(userChatDto)
-                .groupChatName(groupChatName)
                 .build();
     }
 }

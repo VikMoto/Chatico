@@ -12,12 +12,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("/chats")
 @RequiredArgsConstructor
-public class MessageController {
+public class ChatController {
     private final MessageRepository messageRepository;
     private final MessageService  messageService;
     private final CircuitBreakerFactory circuitBreakerFactory;

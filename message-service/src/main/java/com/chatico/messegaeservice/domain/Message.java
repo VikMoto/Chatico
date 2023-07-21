@@ -34,7 +34,7 @@ public class Message {
     @Column(nullable = false)
     private String text;
 
-    @NaturalId
+    @Column(nullable = false, unique = false)
     private Long userchatId;
 
     @Column(updatable = false)
@@ -53,5 +53,15 @@ public class Message {
         this.text = text;
         this.userchatId = userchatId;
         this.creationDate = new Timestamp(creationDate.getTime()).toLocalDateTime();
+    }
+
+    public Message(long id, String text, long userchatId, Date creationDate,
+                   GroupChat groupChat) {
+        this.id = id;
+        this.text = text;
+        this.userchatId = userchatId;
+        this.creationDate = new Timestamp(creationDate.getTime()).toLocalDateTime();
+        this.groupChat = groupChat;
+
     }
 }
