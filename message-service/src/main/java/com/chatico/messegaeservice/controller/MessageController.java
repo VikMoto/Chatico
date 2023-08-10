@@ -5,8 +5,10 @@ import com.chatico.messegaeservice.dto.MessageDto;
 import com.chatico.messegaeservice.repositiry.MessageRepository;
 import com.chatico.messegaeservice.service.MessageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,6 +24,18 @@ public class MessageController {
     private final MessageService  messageService;
     private final CircuitBreakerFactory circuitBreakerFactory;
 
+    @Autowired
+    RestTemplate restTemplate;
+
+    @GetMapping("/test")
+    public String test() {
+        return "Hello from Messages services";
+    }
+
+    @GetMapping("/testUserChat")
+    public String testUserChat() {
+        return restTemplate.getForObject("http://userchats/test", String.class);
+    }
 
     @GetMapping("/list")
     public List<Message> list() {

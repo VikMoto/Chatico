@@ -8,7 +8,11 @@ import com.chatico.userservice.security.AuthenticationType;
 import com.chatico.userservice.service.UserchatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
+import org.springframework.data.annotation.AccessType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +27,20 @@ public class UserChatController {
 
     private final UserChatRepository userChatRepository;
     private final UserchatService userchatService;
+    @Autowired
+    RestTemplate restTemplate;
+
+    @GetMapping("/test")
+    public String test() {
+        return "Hello from UserChat services";
+    }
+
+
+    @GetMapping("/testMessages")
+    public String testMessages() {
+        return restTemplate.getForObject("http://messages/test", String.class);
+    }
+
 
     @GetMapping("/list")
     public List<UserChat> list() {

@@ -1,6 +1,7 @@
 package com.chatico.userservice.congiguration;
 
 
+import com.chatico.userservice.domain.Role;
 import com.chatico.userservice.security.CustomAuthenticationProvider;
 import com.chatico.userservice.security.DatabaseLoginSuccessHandler;
 import com.chatico.userservice.security.UserDetailsServiceImpl;
@@ -75,6 +76,7 @@ public class SocialConfig {
     http
             .authorizeHttpRequests((requests) -> requests
                     .requestMatchers("/", "/users/registration","/home").permitAll()
+//                    .requestMatchers("/users/list").hasRole(Role.SUPER_ADMIN.name())
                     .anyRequest().authenticated()
             )
             .oauth2Login((login) -> login
@@ -99,6 +101,7 @@ public class SocialConfig {
                         }
                     }
             ))
+//            .formLogin(formlogin -> formlogin.disable())
             .formLogin(Customizer.withDefaults())
 //            .formLogin(formLogin -> formLogin
 //                            .loginPage("/login")
