@@ -1,3 +1,9 @@
+debug: false
+server:
+  port: 8150
+  servlet:
+    context-path: /
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/postgres
@@ -24,6 +30,23 @@ spring:
     user: postgres
     password: postgres
     default-schema: public
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 815781859442-muc5qasn0mnnf5vlgfm0b3eotro4n9ce.apps.googleusercontent.com
+            clientSecret: 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
+            scope:
+              - email
+              - profile
+
+gcp:
+  vars:
+    admin.user: ${ADMIN_USERNAME:test@gmail.com}
+    admin.password: ${ADMIN_PASSWORD:12345}
+
 
 eureka:
   client:
